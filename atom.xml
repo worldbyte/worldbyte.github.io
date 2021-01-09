@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldbyte.github.io</id>
     <title>Gridea</title>
-    <updated>2021-01-09T04:49:51.558Z</updated>
+    <updated>2021-01-09T04:52:30.935Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldbyte.github.io"/>
     <link rel="self" href="https://worldbyte.github.io/atom.xml"/>
@@ -16,7 +16,8 @@
         <link href="https://worldbyte.github.io/post/test/">
         </link>
         <updated>2021-01-09T04:33:49.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="入门">入门</h1>
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/>
+# 入门
 <h2 id="hello">hello</h2>
 <p>运行该main方法就相当于启动一个Tomcat服务器</p>
 <pre><code class="language-java">  @SpringBootApplication
