@@ -2,17 +2,22 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>test | Gridea</title>
-<link rel="shortcut icon" href="https://worldbyte.github.io/favicon.ico?v=1610166878213">
+<title>SpringBoot | Gridea</title>
+<link rel="shortcut icon" href="https://worldbyte.github.io/favicon.ico?v=1610167784633">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://worldbyte.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="test | Gridea - Atom Feed" href="https://worldbyte.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="SpringBoot | Gridea - Atom Feed" href="https://worldbyte.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="
-..." />
+    <meta name="description" content="入门
+hello
+运行该main方法就相当于启动一个Tomcat服务器
+  @SpringBootApplication
+  public class SpringbootApplication {
+  
+      public stat..." />
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -22,7 +27,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldbyte.github.io">
-  <img class="avatar" src="https://worldbyte.github.io/images/avatar.png?v=1610166878213" alt="">
+  <img class="avatar" src="https://worldbyte.github.io/images/avatar.png?v=1610167784633" alt="">
   </a>
   <h1 class="site-title">
     Gridea
@@ -75,25 +80,988 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              test
+              SpringBoot
             </h2>
             <div class="post-info">
               <span>
                 2021-01-09
               </span>
               <span>
-                0 min read
+                24 min read
               </span>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <figure data-type="image" tabindex="1"><img src="https://worldbyte.github.io/post-images/1610166837412.jpg" alt="" loading="lazy"></figure>
+                <h1 id="入门">入门</h1>
+<h2 id="hello">hello</h2>
+<p>运行该main方法就相当于启动一个Tomcat服务器</p>
+<pre><code class="language-java">  @SpringBootApplication
+  public class SpringbootApplication {
+  
+      public static void main(String[] args) {
+          SpringApplication.run(SpringbootApplication.class, args);
+      }
+  
+  }
+ 【注意】：
+      1. springboot启动类，文件不能直接放在main/java文件夹下
+</code></pre>
+<h2 id="依赖">依赖</h2>
+<pre><code class="language-plain">&lt;!--父项目———依赖的版本仲裁中心--&gt;
+&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.4.0&lt;/version&gt;
+&lt;/parent&gt;
+</code></pre>
+<pre><code class="language-plain">&lt;!--web功能的起步依赖--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h2 id="配置文件yml">配置文件yml</h2>
+<pre><code class="language-plain">  SpringBoot默认会从Resources目录下加载application.properties或application.yml（application.yaml）文件
+</code></pre>
+<h3 id="语法">语法</h3>
+<pre><code class="language-plain">  1. 普通数据 
+             key: value
+             例如：
+                 name: haohao
+                 注意：value之前有一个空格
+             
+  2. 对象数据
+             key:
+                key1: value1
+                key2: value2
+             注意：在yml语法中，相同缩进代表同一个级别
+          或者：
+             key: {key1: value1,key2: value2}
+             
+             例如：
+                 person:
+                      name: haohao
+                      age: 31
+                      addr: beijing
+                 
+  3. 数组（List、Set）数据
+          	key: 
+          		- value1
+          		- value2
+        或者：
+          	key: [value1,value2]
+          
+            例如：
+            student:
+                - name: zhangsan
+                  age: 18
+                  score: 100
+                - name: lisi
+                  age: 28
+                  score: 88          
+</code></pre>
+<h3 id="占位符">占位符</h3>
+<pre><code class="language-plain">  person:
+    lastName: hello
+    age: ${random.int}
+  其他占位符  
+    ${random.int}      随机整数
+    ${person.name:hello}     若没有name这个属性，则赋值hello 
+    。。。。。    
+</code></pre>
+<p>中文乱码</p>
+<pre><code class="language-plain">配置文件中如果需要写中文，需要这样设置
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://uploader.shimo.im/f/KIhOZmImFJavNrxy.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<h2 id="整合mybatis">整合Mybatis</h2>
+<p>pom.xml</p>
+<pre><code class="language-plain">&lt;!--mybatis起步依赖--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;1.1.1&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- MySQL连接驱动 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>application.properties</p>
+<pre><code class="language-plain">spring.datasource.driverClassName=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8
+spring.datasource.username=root
+spring.datasource.password=root
+#pojo别名扫描包
+mybatis.type-aliases-package=com.itheima.domain
+#加载Mybatis映射文件
+mybatis.mapper-locations=classpath:mapper/*Mapper.xml
+</code></pre>
+<h2 id="数据库配置">数据库配置</h2>
+<pre><code class="language-java">&lt;!--Druid连接池--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.github.drtrang&lt;/groupId&gt;
+    &lt;artifactId&gt;druid-spring-boot2-starter&lt;/artifactId&gt;
+    &lt;version&gt;1.1.10&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>jdbc.properties</p>
+<pre><code class="language-plain">jdbc.driverClassName=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://127.0.0.1:3306/leyou
+jdbc.username=root
+jdbc.password=root
+</code></pre>
+<p>配置类</p>
+<pre><code class="language-java">@Configuration
+public class JdbcConfiguration {
+    @Bean
+    // 声明要注入的属性前缀，SpringBoot会自动把相关属性通过set方法注入到DataSource中
+    @ConfigurationProperties(prefix = &quot;jdbc&quot;)
+    public DataSource dataSource() {
+        DruidDataSource dataSource = new DruidDataSource();
+        return dataSource;
+    }
+}
+</code></pre>
+<p>测试</p>
+<pre><code class="language-java">@RestController
+public class HelloController {
+    // 注入数据源
+    @Autowired
+    private DataSource dataSource;
+    @GetMapping(&quot;hello&quot;)
+    public String hello(){
+        return &quot;hello, spring boot!&quot;;
+    }
+}
+</code></pre>
+<h2 id="静态资源">静态资源</h2>
+<pre><code class="language-plain">1. 访问当前项目的任何资源，都去这些文件夹下找映射
+    &quot;classpath:/META-INF/resources/&quot;, 
+    &quot;classpath:/resources/&quot;,
+    &quot;classpath:/static/&quot;, 
+    &quot;classpath:/public/&quot; 
+    &quot;/&quot;：当前项目的根路径
+    
+    例如：
+      localhost:8080/abc   去这些文件夹里面找abc
+      
+2. 以jar包的形式引入js文件
+   例如：
+      1. 在http://www.webjars.org/上寻找pom坐标引入
+        &lt;!--引入jquery-webjar--&gt;
+      	&lt;dependency&gt;
+			&lt;groupId&gt;org.webjars&lt;/groupId&gt;
+			&lt;artifactId&gt;jquery&lt;/artifactId&gt;
+			&lt;version&gt;3.3.1&lt;/version&gt;
+		&lt;/dependency&gt;
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://uploader.shimo.im/f/LqB0NzP60NbRSDuH.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<pre><code class="language-plain">    localhost:8080/webjars/jquery/3.3.1/jquery.js
+    这样就可以找到静态资源的位置
+3. 欢迎页
+    默认所有静态资源文件夹下的index.html文件
+    例如：
+	  localhost:8080/   找index页面
+4）网站图标
+    默认所有静态资源文件夹下的favicon.ico文件  
+</code></pre>
+<h2 id="applicationyml">application.yml</h2>
+<pre><code class="language-plain">server:
+  port: 8080    # 端口
+  servlet:
+    context-path: /hello  # 项目路径
+</code></pre>
+<h2 id="pomxml">pom.xml</h2>
+<pre><code class="language-xml">&lt;!-------------------------- 核心 -------------------------- &gt;
+&lt;!-- thymeleaf--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;!-- web--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;!-------------------------- 提高生产力 -------------------------- &gt;
+&lt;!-- lombok --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+    &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;
+&lt;!-- devtools--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+    &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;
+&lt;!-------------------------- webjars -------------------------- &gt;
+&lt;!-- jquery--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.webjars&lt;/groupId&gt;
+    &lt;artifactId&gt;jquery&lt;/artifactId&gt;
+    &lt;version&gt;3.3.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://uploader.shimo.im/f/nqLYN9HedkvDTMOf.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<h1 id="模板引擎">模板引擎</h1>
+<h2 id="thymeleaf">thymeleaf</h2>
+<figure data-type="image" tabindex="4"><img src="https://uploader.shimo.im/f/yGPTBMwXH5RMfxq8.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<h3 id="helloworld">HelloWorld</h3>
+<pre><code class="language-plain"> 1. 加入依赖   
+    &lt;dependency&gt;
+    	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    	&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+ 2. 只要我们把HTML页面放在classpath:/templates/，thymeleaf就能自动渲染；
+ 3. &lt;html lang=&quot;en&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;加上这个会有语法提示
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://uploader.shimo.im/f/iiT0z74djEiUtau2.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<p>例子</p>
+<pre><code class="language-java">@Controller
+public class TestController {
+    @RequestMapping(&quot;/test&quot;)
+    public String test(Model model){
+        model.addAttribute(&quot;hello&quot;,&quot;你好&quot;);
+        return &quot;success&quot;;
+    }
+}
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;成功！&lt;/h1&gt;
+    &lt;!--th:text 将div里面的文本内容设置为 --&gt;
+    &lt;div th:text=&quot;${hello}&quot;&gt;这是显示欢迎信息&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="th标签">th标签</h3>
+<pre><code class="language-javascript">1. th:text（th:utext 转义html标签）
+   作用：设置当前元素的文本内容
+    &lt;p th:text=&quot;${}&quot;&gt;&lt;/p&gt;  
+        
+2. th:value（th:src，th:href）
+   作用：设置当前元素的value值
+    &lt;input type=&quot;text&quot; th:value=&quot;${}&quot;/&gt;   
+    &lt;a th:onclick=&quot;member_del([[${ai.a_id}]])&quot; href=&quot;javascript:;&quot;&gt;
+    删除
+    &lt;/a&gt;    
+3. th:each
+   作用：遍历循环元素
+    &lt;tr th:each=&quot;x,state:${xxx}&quot;&gt;
+        &lt;td th:text=&quot;${state.yyy}&quot;&gt;&lt;/td&gt;
+        &lt;td th:text=&quot;${x.yyy}&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+   注意：state是下标属性(可省略)，属性包括：
+        index：列表状态的序号，从0开始；
+        count：列表状态的序号，从1开始；
+        size：列表状态，列表数据条数；
+        current：列表状态，当前数据对象
+        even：列表状态，是否为奇数，boolean类型
+        odd：列表状态，是否为偶数，boolean类型
+        first：列表状态，是否为第一条，boolean类型
+        last：列表状态，是否为最后一条，boolean类型
+    
+4. th:if（th:unless，th:switch，th:case）
+   作用：条件判断
+   例子：&lt;p th:text=&quot;${}&quot; th:if=&quot;${xxx gt xxx}&quot;&gt;&lt;/p&gt;   
+        &lt;div th:switch=&quot;${user.role}&quot;&gt;
+          &lt;p th:case=&quot;'admin'&quot;&gt;用户是管理员&lt;/p&gt;
+          &lt;p th:case=&quot;'manager'&quot;&gt;用户是经理&lt;/p&gt;
+          &lt;p th:case=&quot;*&quot;&gt;用户是别的玩意&lt;/p&gt;
+        &lt;/div&gt;
+   其他： 
+       1. th:if 或者 th:unless ，两者的意思恰好相反。  
+       2. gt：great than（大于）
+          ge：great equal（大于等于）
+          eq：equal（等于）
+          lt：less than（小于）
+          le：less equal（小于等于）
+          ne：not equal（不等于） 
+4. 代码块
+  定义代码块
+    th:fragment
+  代码块引入 
+    th:insert：将代码块片段整个插入到使用了th:insert的HTML标签中
+    th:replace：将代码块片段整个替换使用了th:replace的HTML标签中
+    th:include：将代码块片段包含的内容插入到使用了th:include的HTML标签中
+  三种标签区别
+    定义代码块：在templates文件夹下定义：model.html 
+    &lt;footer th:fragment=&quot;copy&quot;&gt;
+        &amp;copy; 2019 The Good Thymes Virtual Grocery
+    &lt;/footer&gt;
+    代码块引入： 
+    &lt;div th:insert=&quot;model :: copy&quot;&gt;&lt;/div&gt;
+    &lt;div th:replace=&quot;model :: copy&quot;&gt;&lt;/div&gt;
+    &lt;div th:include=&quot;model :: copy&quot;&gt;&lt;/div&gt;
+    结果：    
+    &lt;div&gt;
+        &lt;footer&gt;
+        &amp;copy; 2019 The Good Thymes Virtual Grocery
+        &lt;/footer&gt;
+    &lt;/div&gt;
+    &lt;footer&gt;
+        &amp;copy; 2019 The Good Thymes Virtual Grocery
+    &lt;/footer&gt;
+    &lt;div&gt;
+        &amp;copy; 2019 The Good Thymes Virtual Grocery
+    &lt;/div&gt;
+                
+5. th:object
+    声明变量，一般和*{}一起配合使用，达到偷懒的效果
+    
+6. th:attr
+    修改任意属性，实际开发中用的较少，因为有丰富的其他th属性帮忙，类似的还有th:attrappend，th:attrprepend
+   
+7. th:inline=&quot;javascript&quot; 文本内联
+  在JavaScript中使用Thymeleaf表达式
+    &lt;script th:inline=&quot;javascript&quot;&gt;
+      var myid = [[${session.ad.a_id}]];
+      window.location.href = &quot;/findAdminById?a_id=&quot; + myid;
+    &lt;/script&gt;
+    
+8. th:inline=&quot;text&quot;  脚本内联
+    省去拼接字符串的麻烦
+    &lt;p th:inline=&quot;text&quot;&gt;Hello, [[${session.user.name}]]&lt;/p&gt;
+</code></pre>
+<h3 id="表达式">表达式</h3>
+<pre><code class="language-javascript">1. 链接表达式  @{} 
+   作用：动态获取项目路径，防止静态资源失效
+   例子：&lt;a class=&quot;btn btn-sm&quot; th:href=&quot;@{/hello.html}&quot;&gt;中文&lt;/a&gt;
+   其他：
+        无参：@{/xxx}
+        有参：@{/xxx(k1=v1,k2=v2)}
+        引入本地资源：@{/项目本地的资源路径}
+        引入外部资源：@{/webjars/资源在jar包中的
+2. 变量表达式  ${}
+    
+   内置对象:
+        ctx ：上下文对象。
+        vars ：上下文变量。
+        locale：上下文的语言环境。
+        request：（仅在web上下文）的 HttpServletRequest 对象。
+        response：（仅在web上下文）的 HttpServletResponse 对象。
+        session：（仅在web上下文）的 HttpSession 对象。
+        servletContext：（仅在web上下文）的 ServletContext 对象
+   使用：    
+        // java 代码将用户名放在session中
+        session.setAttribute(&quot;userinfo&quot;,username);
+        // Thymeleaf通过内置对象直接获取
+        th:text=&quot;${session.userinfo}&quot;     
+           
+   内置方法:
+      strings：
+        字符串格式化方法，常用的方法有：
+          equals，equalsIgnoreCase，length，trim，toUpperCase，
+          toLowerCase，indexOf，substring，replace，startsWith，
+          endsWith，contains，containsIgnoreCase等
+      numbers：
+        数值格式化方法，常用的方法有：
+          formatDecimal等
+      bools：
+        布尔方法，常用的方法有：
+          isTrue，isFalse等
+      arrays：
+        数组方法，常用的方法有：
+          toArray，length，isEmpty，contains，containsAll等
+      lists，sets：
+        集合方法，常用的方法有：
+          toList，size，isEmpty，contains，containsAll，sort等
+      maps：
+        对象方法，常用的方法有：
+          size，isEmpty，containsKey，containsValue等
+      dates：
+        日期方法，常用的方法有：
+          format，year，month，hour，createNow等
+   使用：      
+       &lt;span th:text=&quot;${#strings.toUpperCase(xxxx)}&quot;/&gt;
+       
+3. 选择表达式 *{} 
+    作用：与 @{} 一样，但有一个特殊用法           
+        &lt;div th:object=&quot;${session.user}&quot;&gt;
+            &lt;span th:text=&quot;*{firstName}&quot;&gt;xxxx&lt;/span&gt;       
+        &lt;/div&gt;
+        //等价于
+        &lt;div&gt;
+           &lt;span th:text=&quot;${session.user.firstName}&quot;&gt;xxx&lt;/span&gt;      
+        &lt;/div&gt;
+    用于数组对象遍历
+      &lt;tr th:each=&quot;e:${emps}&quot; th:object=&quot;${e}&quot;&gt;
+          &lt;td th:text=&quot;*{name}&quot;&gt;&lt;/td&gt;
+          &lt;td th:text=&quot;*{age}&quot;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    用于数据回显
+      &lt;form th:object=&quot;${emp}&quot; th:action=&quot;@{/edit}&quot; method=&quot;post&quot;&gt;
+          &lt;input th:value=&quot;*{name}&quot; type=&quot;text&quot;&gt;
+          &lt;input th:value=&quot;*{age}&quot; type=&quot;text&quot;&gt;
+      &lt;/form&gt;
+</code></pre>
+<h2 id="freemarker">FreeMarker</h2>
+<h3 id="helloworld-2">HelloWorld</h3>
+<p>application.yml</p>
+<pre><code class="language-markdown">server:
+  port: 8080
+spring:
+  application:
+    name: test-freemarker   # 应用名称
+  freemarker:
+    cache: false      # 是否要启用缓存
+    charset: utf-8    # 字符集
+    expose-request-attributes: true   # 是否要暴露请求和会话属性
+    expose-session-attributes: true
+    suffix: .ftl    # 模板的后缀
+    template-loader-path: classpath:/templates/   # freemarker的模板路径
+</code></pre>
+<p>FreemarkerController</p>
+<pre><code class="language-java">@RequestMapping(&quot;/freemarker&quot;)
+@Controller
+public class FreemarkerController {
+    @RequestMapping(&quot;/test&quot;)
+    public String freemarker(Map&lt;String, Object&gt; map) {
+        map.put(&quot;name&quot;, &quot;Tom&quot;);
+        return &quot;test&quot;;
+    }
+}
+</code></pre>
+<p>test.ftl</p>
+<pre><code class="language-markdown">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf‐8&quot;&gt;
+    &lt;title&gt;Hello World!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+Hello ${name}!
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="常用指令">常用指令</h3>
+<pre><code class="language-plain">1. List指令
+    &lt;#list stus as stu&gt;
+        &lt;tr&gt;
+            &lt;td&gt;${stu_index + 1}&lt;/td&gt;
+            &lt;td&gt;${stu.name}&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/#list&gt;
+    
+    说明： stu后边加&quot;_index&quot;表示索引，从0开始 
+    
+2. 遍历Map数据
+   方式一： 
+        ${stuMap['stu1'].name}
+        简写：${stuMap.stu1.name}
+        
+   方式二：先拿到key再遍历
+        &lt;#list stuMap?keys as k&gt;
+            &lt;tr&gt;
+                &lt;td&gt;${k_index + 1}&lt;/td&gt;
+                &lt;td&gt;${stuMap[k].name}&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/#list&gt;
+   
+3. if指令     
+    &lt;#if name =='Tom'&gt; ${name} &lt;/#if&gt; 
+    
+4. 空值处理 
+    判断某变量是否存在：
+        &lt;#if name??&gt; 该变量存在 &lt;/#if&gt;
+        
+    设置变量默认值，保证即使变量不存在也不会报错
+        ${name!}         设置默认值为空
+        ${name!'null'}   设置默认值为null
+        ${(stu.bestFriend.name)!''}  这种情况需要()
+        
+5. 内建函数： 变量+?+函数名称
+    集合的大小
+        ${集合名?size}
+        
+    日期格式化
+        显示年月日:   ${today?date} 
+        显示时分秒:   ${today?time} 
+        显示日期+时间：${today?datetime}
+        自定义格式化： ${today?string(&quot;yyyy年MM月&quot;)} 
+                
+    数字型转成字符串
+        ${num?c} 
+        
+    json字符串转成对象            
+    &lt;#assign text=&quot;{'bank':'工商银行','account':'10101920201920212'}&quot;/&gt;
+    &lt;#assign data=text?eval /&gt;
+    开户行：${data.bank} 账号：${data.account}
+</code></pre>
+<h3 id="静态化">静态化</h3>
+<pre><code class="language-plain">静态化：数据 + .ftl模板 = html
+</code></pre>
+<p>pom.xml</p>
+<pre><code class="language-plain">&lt;dependency&gt;
+    &lt;groupId&gt;commons-io&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+    &lt;version&gt;2.6&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>test.ftl</p>
+<pre><code class="language-plain">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf‐8&quot;&gt;
+    &lt;title&gt;Hello World!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    ${name}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://uploader.shimo.im/f/v1iURtGnaouyxTyh.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<pre><code class="language-java">@SpringBootTest
+class TestFreemarkerApplicationTests {
+    //基于模板生成静态化文件
+    @Test
+    public void testGenerateHtml() throws IOException, TemplateException {
+        //创建配置类
+        Configuration configuration = new Configuration(Configuration.getVersion());
+        //设置模板路径
+        String classpath = this.getClass().getResource(&quot;/&quot;).getPath();
+        configuration.setDirectoryForTemplateLoading(new File(classpath + &quot;/templates/&quot;));
+        //设置字符集
+        configuration.setDefaultEncoding(&quot;gbk&quot;);
+        //加载模板
+        Template template = configuration.getTemplate(&quot;test.ftl&quot;);
+        //数据模型
+        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;name&quot;, &quot;Tom&quot;);
+        //静态化
+        String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, map);
+        //静态化内容
+        System.out.println(content);
+        InputStream inputStream = IOUtils.toInputStream(content);
+        //输出文件
+        FileOutputStream fileOutputStream = new FileOutputStream(new File(&quot;d:/test.html&quot;));
+        int copy = IOUtils.copy(inputStream, fileOutputStream);
+    }
+    
+    //基于模板字符串生成静态化文件
+    @Test
+    public void testGenerateHtmlByString() throws IOException, TemplateException {
+        //创建配置类
+        Configuration configuration=new Configuration(Configuration.getVersion());
+        //获取模板内容
+        //模板内容，这里测试时使用简单的字符串作为模板
+        String templateString=&quot;&quot; +
+                &quot;&lt;html&gt;\n&quot; +
+                &quot;    &lt;head&gt;&lt;/head&gt;\n&quot; +
+                &quot;    &lt;body&gt;\n&quot; +
+                &quot;    名称：${name}\n&quot; +
+                &quot;    &lt;/body&gt;\n&quot; +
+                &quot;&lt;/html&gt;&quot;;
+        //加载模板
+        //模板加载器
+        StringTemplateLoader stringTemplateLoader = new StringTemplateLoader();
+        stringTemplateLoader.putTemplate(&quot;template&quot;,templateString);
+        configuration.setTemplateLoader(stringTemplateLoader);
+        Template template = configuration.getTemplate(&quot;template&quot;,&quot;utf-8&quot;);
+        //数据模型
+        Map map = getMap();
+        //静态化
+        String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, map);
+        //静态化内容
+        System.out.println(content);
+        InputStream inputStream = IOUtils.toInputStream(content);
+        //输出文件
+        FileOutputStream fileOutputStream = new FileOutputStream(new File(&quot;d:/test.html&quot;));
+        IOUtils.copy(inputStream, fileOutputStream);
+    }
+    //数据模型
+    private Map getMap(){
+        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+        //向数据模型放数据
+        map.put(&quot;name&quot;,&quot;Tom&quot;);
+        return map;
+    }    
+}
+</code></pre>
+<h1 id="自动化工具">自动化工具</h1>
+<h2 id="热部署">热部署</h2>
+<pre><code class="language-plain">1. devtools热部署  
+  &lt;!--devtools热部署--&gt;
+  &lt;dependency&gt;
+     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+     &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+     &lt;optional&gt;true&lt;/optional&gt;
+  &lt;/dependency&gt;
+  
+  按下Ctrl+F9项目进行热部署
+  
+2. 设置当我们修改了类文件后自动进行热部署，这样就不用Ctrl+F9了
+  （1）File-Settings-Compiler-Build Project automatically
+  （2）ctrl + shift + alt + / ,选择Registry,
+      勾上 Compiler autoMake allow when app running
+</code></pre>
+<figure data-type="image" tabindex="7"><img src="https://uploader.shimo.im/f/ghfEv5Sqhfmoshf8.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://uploader.shimo.im/f/fZx99a4yloe706pV.png!thumbnail?fileGuid=wXrH3Gd6D9kTrvGj" alt="图片" loading="lazy"></figure>
+<h1 id="注解开发">注解开发</h1>
+<h2 id="配置">配置</h2>
+<h3 id="configuration">@Configuration</h3>
+<p>配置类（代替spring的xml配置文件）</p>
+<pre><code class="language-java">  @Configuration
+  public class MainConfig {
+  
+  }
+</code></pre>
+<p>创建容器</p>
+<pre><code class="language-java">  public static void main(String[] args) {
+      //  加载配置类，创建容器
+      ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
+  
+      //  获取bean对象
+      Person bean = applicationContext.getBean(Person.class);
+  
+      //  获取容器中所有Person类型对象的id
+      String[] namesForType = applicationContext.getBeanNamesForType(Person.class);
+      for (String name : namesForType) {
+          System.out.println(name);
+      }
+            
+  }
+</code></pre>
+<h3 id="componentscan">@ComponentScan</h3>
+<pre><code class="language-java">  @ComponentScan(value=&quot;com.zzf&quot;,
+                 includeFilters = {
+                              @Filter(type=FilterType.ANNOTATION,
+                                      classes={Controller.class}),
+                              @Filter(type=FilterType.ASSIGNABLE_TYPE,
+                                      classes={BookService.class}),
+  },useDefaultFilters = false)
+  
+  @ComponentScan({&quot;com.zzf.dao&quot;,&quot;com.zzf.service&quot;})
+  1. 解读：    
+      value                       指定要扫描的包
+      excludeFilters = Filter[]   指定扫描的时候按照什么规则排除那些组件
+      includeFilters = Filter[]   指定扫描的时候只需要包含哪些组件
+      FilterType.ANNOTATION       按照注解过滤
+      FilterType.ASSIGNABLE_TYPE  按照具体给定的类过滤
+      useDefaultFilters = false   打开过滤功能，默认是关闭的
+      
+  2. 作用位置：配置类上
+</code></pre>
+<h3 id="propertysource">@PropertySource</h3>
+<pre><code class="language-java">  // 加载指定的配置文件
+  @PropertySource(value={&quot;classpath:/application.properties&quot;})
+</code></pre>
+<h3 id="importresource">@ImportResource</h3>
+<pre><code class="language-java">  // 加载自定义名称的Spring的配置文件
+  @ImportResource(locations = {&quot;classpath:beans.xml&quot;})  
+</code></pre>
+<h2 id="组件注册">组件注册</h2>
+<h3 id="bean">@Bean</h3>
+<pre><code class="language-java">   @Bean
+   public Person person1(){
+      return new Person(&quot;lisi&quot;, 20);
+   }
+   @Bean(&quot;person&quot;)
+   public Person person2(){
+      return new Person(&quot;lisi&quot;, 20);
+   }
+   
+   
+   1. 作用：将方法的返回值添加到容器中 
+   2. bean类型为返回值的类型，id默认是用方法名，可以使用@Bean(&quot;person&quot;)自定义
+</code></pre>
+<h3 id="import">@Import</h3>
+<pre><code class="language-java">  @Import(Person.class)
+  @Import({Person.class,Car.class})  
+  
+  注意：
+      1. 作用位置：配置类上
+      2. bean对象的id默认是组件的全类名      
+</code></pre>
+<h3 id="其他">其他</h3>
+<pre><code class="language-plain">    @Component(&quot;user&quot;)
+    @Controller  WEB 层 
+    @Service     业务层 
+    @Repository  持久层 
+    
+    注意：    
+        这些注解功能一样，只是为了让标注类本身的用途清晰
+    作用：
+        标注在类上方可以替代下方代码： 
+        &lt;bean name=&quot;user&quot; class=&quot;pojo.User&quot;&gt;&lt;/bean&gt;
+</code></pre>
+<h2 id="属性赋值">属性赋值</h2>
+<h3 id="value">@Value</h3>
+<pre><code class="language-java"> public class Person {
+    // 基本数值
+    @Value(&quot;张三&quot;)
+    private String name;
+    
+    // 可以写SpEL #{} 
+    @Value(&quot;#{20-2}&quot;)
+    private Integer age;
+    
+    // 获取配置文件信息 ${} 
+    @Value(&quot;${person.nickName}&quot;)
+    private String nickName;
+ }                           
+</code></pre>
+<h3 id="configurationproperties">@ConfigurationProperties</h3>
+<p>将配置文件中配置的每一个属性的值，映射到这个组件中</p>
+<pre><code class="language-java">  // 只有这个组件是容器中的组件，
+  // 才能容器提供的@ConfigurationProperties功能；
+  @Component
+  // 配置文件中哪个下面的所有属性进行一一映射
+  @ConfigurationProperties(prefix = &quot;person&quot;)
+  public class Person {
+    
+      private String lastName;
+      private Integer age;
+      private Boolean boss;
+      private Date birth;
+      ..getter/setter
+  }
+  【注意】：
+      1. 使用@ConfigurationProperties方式可以进行配置文件与实体字段的自动映射，但需要字段必须提供set方法才可以，而使用@Value注解修饰的字段不需要提供set方法
+      
+      2. 加上此依赖，写yml文件时会有提示功能
+      &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-configuration-processor&lt;/artifactId&gt;
+        &lt;optional&gt;true&lt;/optional&gt;
+      &lt;/dependen
+</code></pre>
+<h3 id="比较">比较</h3>
+<p><strong>@Value<strong><strong>获取值</strong></strong>和@ConfigurationProperties****获取值比较</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">@ConfigurationProperties</th>
+<th style="text-align:left">@Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">功能</td>
+<td style="text-align:left">批量注入配置文件中的属性</td>
+<td style="text-align:left">一个个指定</td>
+</tr>
+<tr>
+<td style="text-align:left">松散绑定（松散语法）</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left">SpEL</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left">支持</td>
+</tr>
+<tr>
+<td style="text-align:left">JSR303数据校验</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+<tr>
+<td style="text-align:left">复杂类型封装</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">不支持</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-plain">    如果说，我们只是在某个业务逻辑中需要获取一下配置文件中的某项值，使用@Value；
+    如果说，我们专门编写了一个javaBean来和配置文件进行映射，我们就直接使用@ConfigurationProperties；
+</code></pre>
+<h2 id="自动装配">自动装配</h2>
+<pre><code class="language-plain">  1. @Autowired
+ 		1）默认优先按照类型去容器中找对应的组件
+ 		2）如果找到多个相同类型的组件，再将属性的名称作为组件的id去容器中查找
+ 
+  2. @Qualifier(&quot;bookDao&quot;)
+        使用@Qualifier指定需要装配的组件的id，而不是使用属性名
+        
+  3. @Resource
+   	    可以和@Autowired一样实现自动装配功能；默认是按照组件名称进行装配的；
+       	
+</code></pre>
+<h2 id="方法映射">方法映射</h2>
+<h3 id="requestmapping">@RequestMapping</h3>
+<pre><code class="language-java">  1. 作用在类上：第一级的访问目录 
+  2. 作用在方法上：第二级的访问目录 
+    @Controller
+    @RequestMapping(&quot;/user&quot;)
+    public class HelloController {
+    
+        @RequestMapping(&quot;/hello&quot;)
+        public String sayHello() {
+    
+        }
+    }
+</code></pre>
+<p>类似</p>
+<pre><code class="language-plain">  @GetMapping 和 @PostMapping
+  
+      将 HTTP 中 GET/POST请求映射到特定的处理程序方法。 
+      相当于@RequestMapping(method = RequestMethod.GET)
+           @RequestMapping(method = RequestMethod.POST)
+</code></pre>
+<h3 id="responsebody">@ResponseBody</h3>
+<pre><code class="language-java">  1. 作用：作用在方法上，将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区
+  2. 作用位置：类 或者 方法
+  
+    @Controller
+    @RequestMapping(&quot;/user&quot;)
+    public class HelloController {
+    
+        @RequestMapping(&quot;/hello&quot;)  
+        @ResponseBody
+        public String sayHello() {
+            return &quot;Hello&quot;;
+        }
+    }
+    
+   【注意】：
+       1. 使用时，需要导入Jackson依赖将对象转为JSON数据
+        &lt;dependency&gt;
+          &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+          &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+          &lt;version&gt;2.9.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+          &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+          &lt;version&gt;2.9.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+          &lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;
+          &lt;version&gt;2.9.0&lt;/version&gt;
+        &lt;/dependency&gt;  
+</code></pre>
+<h3 id="restcontroller">@RestController</h3>
+<pre><code class="language-java">  1. 作用在类上，相当于@Controller + @ResponseBody
+  
+      @RestController
+      @RequestMapping(&quot;/user&quot;)
+      public class HelloController {
+      
+          @RequestMapping(&quot;/hello&quot;)
+          public String sayHello() {
+              return &quot;Hello&quot;;
+          }
+      }
+</code></pre>
+<h2 id="单元测试">单元测试</h2>
+<pre><code class="language-java">    //创建容器，并指定创建容器时使用的配置文件
+    @RunWith(SpringJUnit4ClassRunner.class)
+    @ContextConfiguration(&quot;classpath:applicationContext.xml&quot;)
+    public class SpringTest {
+        //将名为user的对象注入到u变量中
+        @Resource(&quot;user&quot;)
+        private User u;
+        @Test
+        public void test(){
+            System.out.println(u);
+        }
+    }
+   【注意】
+     1. 需要加入的依赖 
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+            &lt;version&gt;4.2.0.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+     2. 
+        //  方便测试，省去了以下重复代码的书写    
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+        User user = (User) context.getBean(&quot;user&quot;);
+        System.out.println(user);
+</code></pre>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%85%A5%E9%97%A8">入门</a>
+<ul>
+<li><a href="#hello">hello</a></li>
+<li><a href="#%E4%BE%9D%E8%B5%96">依赖</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6yml">配置文件yml</a>
+<ul>
+<li><a href="#%E8%AF%AD%E6%B3%95">语法</a></li>
+<li><a href="#%E5%8D%A0%E4%BD%8D%E7%AC%A6">占位符</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B4%E5%90%88mybatis">整合Mybatis</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE">数据库配置</a></li>
+<li><a href="#%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90">静态资源</a></li>
+<li><a href="#applicationyml">application.yml</a></li>
+<li><a href="#pomxml">pom.xml</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E">模板引擎</a>
+<ul>
+<li><a href="#thymeleaf">thymeleaf</a>
+<ul>
+<li><a href="#helloworld">HelloWorld</a></li>
+<li><a href="#th%E6%A0%87%E7%AD%BE">th标签</a></li>
+<li><a href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F">表达式</a></li>
+</ul>
+</li>
+<li><a href="#freemarker">FreeMarker</a>
+<ul>
+<li><a href="#helloworld-2">HelloWorld</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4">常用指令</a></li>
+<li><a href="#%E9%9D%99%E6%80%81%E5%8C%96">静态化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7">自动化工具</a>
+<ul>
+<li><a href="#%E7%83%AD%E9%83%A8%E7%BD%B2">热部署</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91">注解开发</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE">配置</a>
+<ul>
+<li><a href="#configuration">@Configuration</a></li>
+<li><a href="#componentscan">@ComponentScan</a></li>
+<li><a href="#propertysource">@PropertySource</a></li>
+<li><a href="#importresource">@ImportResource</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E6%B3%A8%E5%86%8C">组件注册</a>
+<ul>
+<li><a href="#bean">@Bean</a></li>
+<li><a href="#import">@Import</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B1%9E%E6%80%A7%E8%B5%8B%E5%80%BC">属性赋值</a>
+<ul>
+<li><a href="#value">@Value</a></li>
+<li><a href="#configurationproperties">@ConfigurationProperties</a></li>
+<li><a href="#%E6%AF%94%E8%BE%83">比较</a></li>
+</ul>
+</li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D">自动装配</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E6%98%A0%E5%B0%84">方法映射</a>
+<ul>
+<li><a href="#requestmapping">@RequestMapping</a></li>
+<li><a href="#responsebody">@ResponseBody</a></li>
+<li><a href="#restcontroller">@RestController</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95">单元测试</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
